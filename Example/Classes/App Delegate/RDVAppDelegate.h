@@ -22,8 +22,9 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "RDVTabBarController.h"
 
-@interface RDVAppDelegate : UIResponder <UIApplicationDelegate>
+@interface RDVAppDelegate : UIResponder <UIApplicationDelegate,RDVTabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UIViewController *viewController;

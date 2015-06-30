@@ -75,7 +75,8 @@
 /**
  * Tells the delegate that the user selected an item in the tab bar.
  */
-- (void)tabBarController:(RDVTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController;
+- (void)tabBarController:(RDVTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+    didSelectItemAtIndex:(NSInteger)index;
 
 @end
 

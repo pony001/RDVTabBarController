@@ -138,9 +138,13 @@
         
         for (UIViewController *viewController in viewControllers) {
             RDVTabBarItem *tabBarItem = [[RDVTabBarItem alloc] init];
-            [tabBarItem setTitle:viewController.title];
+            if ([viewController isKindOfClass:[UIViewController class]]) {
+                [tabBarItem setTitle:viewController.title];
+            }
             [tabBarItems addObject:tabBarItem];
-            [viewController rdv_setTabBarController:self];
+            if ([viewController isKindOfClass:[UIViewController class]]) {
+                [viewController rdv_setTabBarController:self];
+            }
         }
         
         [[self tabBar] setItems:tabBarItems];
@@ -259,10 +263,14 @@
         return;
     }
     
-    [self setSelectedIndex:index];
+    if ([[self viewControllers][index] isKindOfClass:[UIViewController class]]) {
+        [self setSelectedIndex:index];
+    }
     
-    if ([[self delegate] respondsToSelector:@selector(tabBarController:didSelectViewController:)]) {
-        [[self delegate] tabBarController:self didSelectViewController:[self viewControllers][index]];
+    if ([[self delegate] respondsToSelector:@selector(tabBarController:didSelectViewController:didSelectItemAtIndex:)]) {
+        [[self delegate] tabBarController:self
+                  didSelectViewController:[self viewControllers][index]
+                     didSelectItemAtIndex:index];
     }
 }
 

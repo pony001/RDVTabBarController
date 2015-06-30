@@ -59,9 +59,11 @@
                                                    initWithRootViewController:thirdViewController];
     
     RDVTabBarController *tabBarController = [[RDVTabBarController alloc] init];
-    [tabBarController setViewControllers:@[firstNavigationController, secondNavigationController,
+    [tabBarController setViewControllers:@[firstNavigationController, [NSNull null],
                                            thirdNavigationController]];
     self.viewController = tabBarController;
+    tabBarController.delegate = self;
+    //[tabBarController setSelectedIndex:1];
     
     [self customizeTabBarForController:tabBarController];
 }
@@ -113,6 +115,12 @@
     [navigationBarAppearance setBackgroundImage:backgroundImage
                                   forBarMetrics:UIBarMetricsDefault];
     [navigationBarAppearance setTitleTextAttributes:textAttributes];
+}
+
+-(void)tabBarController:(RDVTabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+   didSelectItemAtIndex:(NSInteger)index{
+    
+    NSLog(@"index:%d",index);
 }
 
 @end
