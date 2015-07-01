@@ -35,7 +35,7 @@
 /**
  * Tells the delegate that the specified tab bar item is now selected.
  */
-- (void)tabBar:(RDVTabBar *)tabBar didSelectItemAtIndex:(NSInteger)index;
+- (void)tabBar:(RDVTabBar *)tabBar didSelectItem:(RDVTabBarItem *)item didSelectItemAtIndex:(NSInteger)index;
 
 @end
 

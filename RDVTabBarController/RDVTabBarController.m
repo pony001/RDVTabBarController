@@ -258,13 +258,16 @@
     return YES;
 }
 
-- (void)tabBar:(RDVTabBar *)tabBar didSelectItemAtIndex:(NSInteger)index {
+- (void)tabBar:(RDVTabBar *)tabBar
+ didSelectItem:(RDVTabBarItem *)item
+didSelectItemAtIndex:(NSInteger)index {
     if (index < 0 || index >= [[self viewControllers] count]) {
         return;
     }
     
     if ([[self viewControllers][index] isKindOfClass:[UIViewController class]]) {
         [self setSelectedIndex:index];
+        [tabBar setSelectedItem:item];
     }
     
     if ([[self delegate] respondsToSelector:@selector(tabBarController:didSelectViewController:didSelectItemAtIndex:)]) {
