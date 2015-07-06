@@ -116,7 +116,11 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     
-    [backgroundImage drawInRect:self.bounds];
+    float w = self.bounds.size.width;
+    float h = self.bounds.size.height;
+    
+    CGRect bgrect = CGRectMake((w - backgroundImage.size.width)/2, h - backgroundImage.size.height, backgroundImage.size.width, backgroundImage.size.height);
+    [backgroundImage drawInRect:bgrect];
     
     // Draw image and title
     
