@@ -184,67 +184,18 @@
     }
     
     // Draw badges
-    
-    if ([[self badgeValue] length]) {
-        CGSize badgeSize = CGSizeZero;
-        
-        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-            badgeSize = [_badgeValue boundingRectWithSize:CGSizeMake(frameSize.width, 20)
-                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                               attributes:@{NSFontAttributeName: [self badgeTextFont]}
-                                                  context:nil].size;
-        } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
-            badgeSize = [_badgeValue sizeWithFont:[self badgeTextFont]
-                                constrainedToSize:CGSizeMake(frameSize.width, 20)];
-#endif
+     if (_needShowBadge) {
+        if (_badgeSize.width == 0) {
+            _badgeSize = CGSizeMake(7, 7);
         }
-        
-        CGFloat textOffset = 2.0f;
-        
-        if (badgeSize.width < badgeSize.height) {
-            badgeSize = CGSizeMake(badgeSize.height, badgeSize.height);
-        }
-        
-        CGRect badgeBackgroundFrame = CGRectMake(roundf(frameSize.width / 2 + (image.size.width / 2) * 0.9) +
-                                                 [self badgePositionAdjustment].horizontal,
-                                                 textOffset + [self badgePositionAdjustment].vertical,
-                                                 badgeSize.width + 2 * textOffset, badgeSize.height + 2 * textOffset);
+        CGRect badgeBackgroundFrame = CGRectMake(roundf(frameSize.width / 2) + [self badgePositionAdjustment].horizontal,
+                                                 roundf(frameSize.height / 2) + [self badgePositionAdjustment].vertical,
+                                                 _badgeSize.width, _badgeSize.height);
         
         if ([self badgeBackgroundColor]) {
             CGContextSetFillColorWithColor(context, [[self badgeBackgroundColor] CGColor]);
             
             CGContextFillEllipseInRect(context, badgeBackgroundFrame);
-        } else if ([self badgeBackgroundImage]) {
-            [[self badgeBackgroundImage] drawInRect:badgeBackgroundFrame];
-        }
-        
-        CGContextSetFillColorWithColor(context, [[self badgeTextColor] CGColor]);
-        
-        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-            NSMutableParagraphStyle *badgeTextStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-            [badgeTextStyle setLineBreakMode:NSLineBreakByWordWrapping];
-            [badgeTextStyle setAlignment:NSTextAlignmentCenter];
-            
-            NSDictionary *badgeTextAttributes = @{
-                                                  NSFontAttributeName: [self badgeTextFont],
-                                                  NSForegroundColorAttributeName: [self badgeTextColor],
-                                                  NSParagraphStyleAttributeName: badgeTextStyle,
-                                                  };
-            
-            [[self badgeValue] drawInRect:CGRectMake(CGRectGetMinX(badgeBackgroundFrame) + textOffset,
-                                                     CGRectGetMinY(badgeBackgroundFrame) + textOffset,
-                                                     badgeSize.width, badgeSize.height)
-                withAttributes:badgeTextAttributes];
-        } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
-            [[self badgeValue] drawInRect:CGRectMake(CGRectGetMinX(badgeBackgroundFrame) + textOffset,
-                                                     CGRectGetMinY(badgeBackgroundFrame) + textOffset,
-                                                     badgeSize.width, badgeSize.height)
-                                 withFont:[self badgeTextFont]
-                            lineBreakMode:NSLineBreakByTruncatingTail
-                                alignment:NSTextAlignmentCenter];
-#endif
         }
     }
     
@@ -271,8 +222,8 @@
     }
 }
 
-- (void)setBadgeValue:(NSString *)badgeValue {
-    _badgeValue = badgeValue;
+- (void)setNeedShowBadge:(BOOL)needShowBadge {
+    _needShowBadge = needShowBadge;
     
     [self setNeedsDisplay];
 }
