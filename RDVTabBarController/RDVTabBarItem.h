@@ -98,15 +98,7 @@
 
 #pragma mark - Badge configuration
 
-/**
- * Text that is displayed in the upper-right corner of the item with a surrounding background.
- */
-@property (nonatomic, copy) NSString *badgeValue;
-
-/**
- * Image used for background of badge.
- */
-@property (strong) UIImage *badgeBackgroundImage;
+@property BOOL needShowBadge;
 
 /**
  * Color used for badge's background.
@@ -114,18 +106,10 @@
 @property (strong) UIColor *badgeBackgroundColor;
 
 /**
- * Color used for badge's text.
- */
-@property (strong) UIColor *badgeTextColor;
-
-/**
  * The offset for the rectangle around the tab bar item's badge.
  */
 @property (nonatomic) UIOffset badgePositionAdjustment;
 
-/**
- * Font used for badge's text.
- */
-@property (nonatomic) UIFont *badgeTextFont;
+@property (nonatomic) CGSize badgeSize;
 
 @end
