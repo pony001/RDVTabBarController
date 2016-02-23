@@ -83,9 +83,8 @@
     
     _selectedTitleAttributes = [_unselectedTitleAttributes copy];
     _badgeBackgroundColor = [UIColor redColor];
-    _badgeTextColor = [UIColor whiteColor];
-    _badgeTextFont = [UIFont systemFontOfSize:12];
     _badgePositionAdjustment = UIOffsetZero;
+    _badgeSize = CGSizeMake(7, 7);
 }
 
 - (void)drawRect:(CGRect)rect {
